@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Starbrew — Signature Coffee</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f4f6f5; --card:#ffffff; --accent:#006241; --muted:#7b7b7b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Montserrat,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--bg);color:#222}
+    header{background:linear-gradient(180deg, rgba(0,98,65,0.95), rgba(0,98,65,0.85)), url('') center/cover no-repeat; padding:44px 24px 80px; color:#fff}
+    .container{max-width:1100px;margin:0 auto}
+    .topbar{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;gap:12px;align-items:center;font-weight:700}
+    .logo .mark{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#fff 20%, rgba(255,255,255,0.15));display:flex;align-items:center;justify-content:center;font-family:Playfair Display,serif;font-size:20px}
+    nav a{color:rgba(255,255,255,0.95);text-decoration:none;margin-left:18px;font-weight:600}
+
+    .hero{display:flex;gap:32px;align-items:center; margin-top:28px}
+    .hero-left{flex:1}
+    .eyebrow{opacity:0.9;font-weight:600;letter-spacing:1px}
+    h1{font-family:Playfair Display,serif;font-size:44px;margin:8px 0}
+    p.lead{color:rgba(255,255,255,0.9);max-width:560px}
+    .cta{margin-top:18px}
+    .btn{background:var(--card);color:var(--accent);padding:10px 16px;border-radius:8px;border:none;font-weight:700;cursor:pointer}
+
+    .hero-right{width:320px}
+    .card-preview{background:var(--card);padding:16px;border-radius:14px; box-shadow:0 8px 24px rgba(0,0,0,0.12); color:#111}
+    .coffee-img{height:220px;border-radius:8px;background:linear-gradient(180deg,#f2e6d8,#fff);display:flex;align-items:center;justify-content:center;font-size:120px}
+
+    main{padding:32px 24px}
+    .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+    .menu-item{background:var(--card);border-radius:12px;padding:16px;box-shadow:0 6px 16px rgba(10,10,10,0.06)}
+    .menu-item h3{margin:6px 0 6px;font-size:18px}
+    .price{color:var(--accent);font-weight:700}
+    .desc{color:var(--muted);font-size:14px}
+    .add{margin-top:10px}
+    .small{font-size:13px;color:var(--muted)}
+
+    footer{padding:28px 24px;background:transparent}
+    .grid-three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+
+    /* responsive */
+    @media (max-width:820px){header{padding-bottom:48px}.hero{flex-direction:column}.hero-right{width:100%}.grid-three{grid-template-columns:1fr}}
+
+    /* mini cart */
+    .cart{position:fixed;right:18px;bottom:18px;background:var(--accent);color:#fff;padding:12px 16px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.18);cursor:pointer}
+    .cart-bubble{background:#fff;color:var(--accent);padding:4px 8px;border-radius:999px;font-weight:700;margin-left:8px}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="topbar">
+        <div class="logo"><div class="mark">SB</div><div>Starbrew</div></div>
+        <nav>
+          <a href="#menu">Menu</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </nav>
+      </div>
+
+      <div class="hero">
+        <div class="hero-left">
+          <div class="eyebrow">Crafted with care • Freshly brewed</div>
+          <h1>Signature Starbucks-style Garment Shop</h1>
+          <p class="lead">Handpicked beans, precise roasting, and heart — a small cup of comfort to jumpstart your day. Try our signature blends and seasonal specials.</p>
+          <div class="cta"><button class="btn" onclick="document.getElementById('menu-section').scrollIntoView({behavior:'smooth'})">Explore Menu</button></div>
+        </div>
+        <div class="hero-right">
+          <div class="card-preview">
+            <div class="coffee-img">☕</div>
+            <h3 style="margin:10px 0 0">Caramel Macchiato</h3>
+            <div class="small">Espresso, steamed milk, vanilla syrup, caramel drizzle</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+              <div class="price">₹249</div>
+              <button class="btn" onclick="addToCart('Caramel Macchiato',249)">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section id="menu-section">
+      <h2 style="font-family:Playfair Display,serif;margin:8px 0 18px">Our Menu</h2>
+      <div class="menu" id="menu">
+        <article class="menu-item">
+          <h3>Espresso</h3>
+          <div class="desc">Rich and intense single/double shot</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹99</div>
+            <button class="btn" onclick="addToCart('Espresso',99)">Add</button>
+          </div>
+        </article>
+
+        <article class="menu-item">
+          <h3>Latte</h3>
+          <div class="desc">Smooth espresso with steamed milk</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹199</div>
+            <button class="btn" onclick="addToCart('Latte',199)">Add</button>
+          </div>
+        </article>
+
+        <article class="menu-item">
+          <h3>Cappuccino</h3>
+          <div class="desc">Espresso topped with foamed milk</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹199</div>
+            <button class="btn" onclick="addToCart('Cappuccino',199)">Add</button>
+          </div>
+        </article>
+
+        <article class="menu-item">
+          <h3>Caramel Macchiato</h3>
+          <div class="desc">Vanilla-flavoured, caramel top</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹249</div>
+            <button class="btn" onclick="addToCart('Caramel Macchiato',249)">Add</button>
+          </div>
+        </article>
+
+        <article class="menu-item">
+          <h3>Mocha</h3>
+          <div class="desc">Chocolate & espresso blend</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹229</div>
+            <button class="btn" onclick="addToCart('Mocha',229)">Add</button>
+          </div>
+        </article>
+
+        <article class="menu-item">
+          <h3>Cold Brew</h3>
+          <div class="desc">Slow-steeped for a smooth finish</div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px">
+            <div class="price">₹189</div>
+            <button class="btn" onclick="addToCart('Cold Brew',189)">Add</button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="about" style="margin-top:30px">
+      <h2 style="font-family:Playfair Display,serif;margin:8px 0 12px">About Starbrew</h2>
+      <div style="display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px;background:var(--card);padding:16px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)">
+          <p class="small">Starbrew is a cozy coffee concept inspired by third-wave cafés. Our beans are ethically sourced and roasted to highlight unique flavours from each origin.</p>
+        </div>
+        <div style="flex:1;min-width:260px">
+          <div class="grid-three">
+            <div style="background:var(--card);padding:12px;border-radius:10px;">Single Origin</div>
+            <div style="background:var(--card);padding:12px;border-radius:10px;">Seasonal Drinks</div>
+            <div style="background:var(--card);padding:12px;border-radius:10px;">Barista Classes</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" style="margin-top:30px">
+      <h2 style="font-family:Playfair Display,serif;margin:8px 0 12px">Contact & Visit</h2>
+      <div style="display:flex;gap:18px;flex-wrap:wrap">
+        <div style="flex:1;min-width:260px;background:var(--card);padding:16px;border-radius:10px">
+          <p class="small">Address: 123 Coffee Lane, Your City</p>
+          <p class="small">Open: Mon–Sun, 7:00 AM – 10:00 PM</p>
+          <p class="small">Phone: +91 98765 43210</p>
+        </div>
+        <div style="flex:1;min-width:260px;background:var(--card);padding:16px;border-radius:10px">
+          <form onsubmit="event.preventDefault();alert('Thanks! We will contact you soon.');">
+            <label style="display:block;margin-bottom:8px;font-weight:600">Send us a message</label>
+            <input placeholder="Your name" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-bottom:8px" />
+            <input placeholder="Email" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6;margin-bottom:8px" />
+            <textarea placeholder="Message" required style="width:100%;padding:10px;border-radius:8px;border:1px solid #e6e6e6"></textarea>
+            <div style="margin-top:8px;text-align:right"><button class="btn">Send</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="container">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap">
+      <div style="color:var(--muted)">© Starbrew • Crafted with ❤️</div>
+      <div style="color:var(--muted)">Made for demo • Open file locally to run</div>
+    </div>
+  </footer>
+
+  <div class="cart" id="cartBtn" onclick="openCart()">Cart <span class="cart-bubble" id="cartCount">0</span></div>
+
+  <script>
+    // simple cart logic
+    const cart = [];
+    function addToCart(name,price){
+      cart.push({name,price});
+      document.getElementById('cartCount').textContent = cart.length;
+      // small feedback
+      const btn = document.querySelector('.cart');
+      btn.animate([{transform:'translateY(0)'},{transform:'translateY(-6px)'},{transform:'translateY(0)'}],{duration:300});
+    }
+    function openCart(){
+      if(cart.length===0){alert('Cart is empty — add some coffee!');return}
+      let body = 'Your cart:\n\n';
+      let total=0;cart.forEach((it,i)=>{body += `${i+1}. ${it.name} — ₹${it.price}\n`; total += it.price});
+      body += `\nTotal: ₹${total}`;
+      if(confirm(body+'\n\nProceed to checkout?')){alert('Great! In a real site you would be taken to payment.');}
+    }
+  </script>
+</body>
+</html>
